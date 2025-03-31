@@ -130,6 +130,7 @@ useEffect(() => {
       <h2 className="text-xl font-bold">List: {decodeURIComponent(slug)}</h2>
 
       <AddItemInput
+      className="text-base"
         placeholder="New category"
         onAdd={addCategory}
         icon="folder"
@@ -172,6 +173,7 @@ useEffect(() => {
 </SwipeableList>
 
       <AddItemInput
+      className="text-base"
         placeholder="Add item without category"
         onAdd={addItemUncategorized}
       />
@@ -206,6 +208,7 @@ useEffect(() => {
                 ))}
               </ul>
               <AddItemInput
+              className="text-base"
                 placeholder={`Add item to ${category.name}`}
                 onAdd={(item) => addItemToCategory(index, item)}
               />

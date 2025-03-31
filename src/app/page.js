@@ -73,14 +73,18 @@ export default function Home() {
           <h2 className="text-xl font-bold">Grocery List</h2>
           <p className="text-gray-600">Start adding items now.</p>
 
-          <div className="flex space-x-2">
-            <Input
-              placeholder="Enter list name"
-              value={listName}
-              onChange={(e) => setListName(e.target.value)}
-            />
-            <Button onClick={handleCreateList}>Add</Button>
-          </div>
+          <div className="flex space-x-2 w-full max-w-full overflow-hidden">
+  <Input
+    className="flex-1 min-w-0"
+    placeholder="Enter list name"
+    value={listName}
+    onChange={(e) => setListName(e.target.value)}
+  />
+  <Button onClick={handleCreateList} className="shrink-0">
+    Add
+  </Button>
+</div>
+
 
           {lists.length > 0 && (
             <div className="space-y-2">
