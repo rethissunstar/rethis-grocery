@@ -71,9 +71,9 @@ export default function Home() {
       content: (
         <>
           <h2 className="text-xl font-bold">Grocery List</h2>
-          <p className="text-gray-600">Start adding items now.</p>
+          <p className="text-gray-600">Start by adding a list.</p>
 
-          <div className="flex space-x-2 w-full max-w-full overflow-hidden">
+          {/* <div className="flex space-x-2 w-full max-w-full overflow-hidden">
   <Input
     className="flex-1 min-w-0"
     placeholder="Enter list name"
@@ -83,7 +83,23 @@ export default function Home() {
   <Button onClick={handleCreateList} className="shrink-0">
     Add
   </Button>
+</div> */}
+<div className="flex w-full items-center rounded-lg border border-gray-300 bg-white overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
+  <input
+    type="text"
+    placeholder="Enter list name"
+    value={listName}
+    onChange={(e) => setListName(e.target.value)}
+    className="flex-1 px-3 py-2 text-base focus:outline-none"
+  />
+  <button
+    onClick={handleCreateList}
+    className="bg-green-800 text-white px-4 py-2 text-sm font-medium hover:bg-green-900 focus:outline-none "
+  >
+    Add
+  </button>
 </div>
+
 
 
           {lists.length > 0 && (
