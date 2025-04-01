@@ -151,23 +151,7 @@ export default function Home() {
     />
 
     {/* Confirmation Overlay */}
-    {/* {listToDelete && (
-      <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-        <div className="bg-white p-4 rounded-xl shadow-lg space-y-4 max-w-xs w-full text-center">
-          <p className="text-lg font-semibold">
-            Delete list "{listToDelete}"?
-          </p>
-          <div className="flex justify-center space-x-4">
-            <Button variant="destructive" onClick={confirmDelete}>
-              Yes, Delete
-            </Button>
-            <Button variant="secondary" onClick={cancelDelete}>
-              Cancel
-            </Button>
-          </div>
-        </div>
-      </div>
-    )} */}
+
     {listToDelete && (
   <div
     className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity duration-300 animate-fade-in"
