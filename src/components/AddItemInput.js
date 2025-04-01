@@ -21,16 +21,21 @@ export default function AddItemInput({
   const Icon = icon === "folder" ? FolderPlus : Plus;
 
   return (
-    <div className="flex space-x-2">
+    <div className="relative w-full">
       <Input
         ref={inputRef}
         placeholder={placeholder}
         onKeyDown={(e) => {
           if (e.key === "Enter") handleAdd();
         }}
+        className="pr-12 text-base" 
       />
-      <Button onClick={handleAdd}>
-        <Icon className="w-5 h-5" />
+      <Button
+        type="button"
+        onClick={handleAdd}
+        className="absolute top-1/2 right-2 -translate-y-1/2 h-8 px-2 py-1 text-sm"
+      >
+        <Icon className="w-8 h-4" />
       </Button>
     </div>
   );

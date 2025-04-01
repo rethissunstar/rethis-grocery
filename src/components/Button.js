@@ -1,25 +1,4 @@
-// import { cn } from "@/lib/utils";
 
-// export function Button({ children, variant = "default", className, ...props }) {
-//   const variants = {
-//     default: "bg-blue-600 text-white hover:bg-blue-700",
-//     secondary: "bg-gray-600 text-white hover:bg-gray-700",
-//     danger: "bg-red-600 text-white hover:bg-red-700",
-//   };
-
-//   return (
-//     <button
-//       className={cn(
-//         "px-4 py-2 rounded-lg font-medium transition duration-200",
-//         variants[variant],
-//         className
-//       )}
-//       {...props}
-//     >
-//       {children}
-//     </button>
-//   );
-// }
 import { cn } from "@/lib/utils";
 
 export function Button({

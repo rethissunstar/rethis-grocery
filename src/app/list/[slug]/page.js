@@ -10,7 +10,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/Accordion";
-import { CheckCircle, Circle } from "lucide-react";
+import {ArrowLeft, CheckCircle, Circle } from "lucide-react";
 import AddItemInput from "@/components/AddItemInput";
 import {
     SwipeableList,
@@ -127,7 +127,17 @@ useEffect(() => {
 
   return (
     <div className="p-4 max-w-md mx-auto space-y-4">
-      <h2 className="text-xl font-bold">List: {decodeURIComponent(slug)}</h2>
+ <div className="flex items-center justify-between">
+ <Button
+        variant="secondary"
+        className="w-half mt-4"
+        onClick={() => router.push("/")}
+      >
+        <ArrowLeft className="w-12 h-10" />
+        Back
+      </Button>
+      <h2 className="text-xl font-bold p-2">List: {decodeURIComponent(slug)}</h2>
+ </div>
 
       <AddItemInput
       className="text-base"
@@ -177,53 +187,62 @@ useEffect(() => {
         placeholder="Add item without category"
         onAdd={addItemUncategorized}
       />
-
-      <Accordion type="multiple" className="w-full">
-        {listData.categories.map((category, index) => (
-          <AccordionItem key={category.name} value={category.name}>
-            <AccordionTrigger>{category.name}</AccordionTrigger>
-            <AccordionContent>
-              <ul className="mb-2 space-y-2">
-                {category.items.map((item, i) => (
-                  <li
-                    key={i}
-                    onClick={() => toggleItem(index, i)}
-                    className="flex items-center space-x-2 cursor-pointer"
+<Accordion type="multiple" className="w-full">
+  {listData.categories.map((category, index) => (
+    <AccordionItem key={category.name} value={category.name}>
+      <AccordionTrigger>{category.name}</AccordionTrigger>
+      <AccordionContent>
+        <SwipeableList>
+          {category.items.map((item, i) => (
+            <SwipeableListItem
+              key={i}
+              trailingActions={
+                <TrailingActions>
+                  <SwipeAction
+                    destructive
+                    onClick={() => deleteCategoryItem(index, i)}
                   >
-                    {item.checked ? (
-                      <CheckCircle className="text-green-600 w-6 h-6" />
-                    ) : (
-                      <Circle className="text-gray-400 w-6 h-6" />
-                    )}
-                    <span
-                      className={`text-lg ${
-                        item.checked
-                          ? "line-through text-gray-400"
-                          : "text-gray-800"
-                      }`}
-                    >
-                      {item.name}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <AddItemInput
-              className="text-base"
-                placeholder={`Add item to ${category.name}`}
-                onAdd={(item) => addItemToCategory(index, item)}
-              />
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
+                    Delete
+                  </SwipeAction>
+                </TrailingActions>
+              }
+            >
+              <li
+                onClick={() => toggleItem(index, i)}
+                className="flex items-center space-x-2 px-3 py-2 bg-white border-b cursor-pointer"
+              >
+                {item.checked ? (
+                  <CheckCircle className="text-green-600 w-6 h-6" />
+                ) : (
+                  <Circle className="text-gray-400 w-6 h-6" />
+                )}
+                <span
+                  className={`text-lg ${
+                    item.checked
+                      ? "line-through text-gray-400"
+                      : "text-gray-800"
+                  }`}
+                >
+                  {item.name}
+                </span>
+              </li>
+            </SwipeableListItem>
+          ))}
+        </SwipeableList>
 
-      <Button
-        variant="secondary"
-        className="w-full mt-4"
-        onClick={() => router.push("/")}
-      >
-        Back to Lists
-      </Button>
+        <AddItemInput
+          className="text-base"
+          placeholder={`Add item to ${category.name}`}
+          onAdd={(item) => addItemToCategory(index, item)}
+        />
+      </AccordionContent>
+    </AccordionItem>
+  ))}
+</Accordion>
+
+     
+
+ 
     </div>
   );
 }
