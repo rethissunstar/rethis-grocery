@@ -159,9 +159,10 @@ export default function Home() {
     <div
       className="bg-white p-4 rounded-xl shadow-lg space-y-4 max-w-xs w-full text-center transform transition-all duration-300 scale-95 opacity-0 animate-dialog-in"
     >
-      <p className="text-lg font-semibold">
-        Delete list "{listToDelete}"?
-      </p>
+<p className="text-lg font-semibold">
+  Delete list &quot;{listToDelete}&quot;?
+</p>
+
       <div className="flex justify-center space-x-4">
         <Button variant="destructive" onClick={confirmDelete}>
           Yes, Delete
