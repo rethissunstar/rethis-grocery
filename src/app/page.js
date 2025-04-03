@@ -15,6 +15,8 @@ import { handleDetected } from "@/utils/scanUtils";
 import StaticImageBarcodeScanner from "@/components/StaticImageBarcodeScanner"
 import QuaggaScanner from "@/components/quaggaScanner/QuaggaScanner";
 
+//This is the backup branch
+
 export default function Home() {
   const [listName, setListName] = useState("");
   const [lists, setLists] = useState([]);
