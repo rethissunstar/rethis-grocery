@@ -8,7 +8,7 @@ import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";
 import { Input } from "@/components/Input";
 import Tabs from "@/components/Tabs";
-import { useSetAtom } from "jotai";
+import { useSetAtom, useAtom } from "jotai";
 import { preventAutoResetAtom } from "@/store/ListRoute";
 import BarcodeScanner from "@/components/BarcodeScanner";
 import { handleDetected } from "@/utils/scanUtils"; 
