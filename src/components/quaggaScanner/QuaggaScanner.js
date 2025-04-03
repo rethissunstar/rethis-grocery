@@ -101,7 +101,7 @@ import { useCallback, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import Quagga from '@ericblade/quagga2';
 import { useSetAtom } from 'jotai';
-import { upcAtom } from '@/store/atoms';
+import { upcAtom } from "@/store/ListRoute";
 
 function getMedian(arr) {
     const newArr = [...arr];
