@@ -1,6 +1,6 @@
 {
     "name": "RethisTools",
-    "short_name": "Rethis",
+    "short_name": "RethisTools",
     "description": "A fast, installable grocery list app",
     "start_url": "/",
     "display": "standalone",

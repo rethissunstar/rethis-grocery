@@ -10,6 +10,10 @@ import { Input } from "@/components/Input";
 import Tabs from "@/components/Tabs";
 import { useSetAtom } from "jotai";
 import { preventAutoResetAtom } from "@/store/ListRoute";
+import BarcodeScanner from "@/components/BarcodeScanner";
+import { handleDetected } from "@/utils/scanUtils"; 
+import StaticImageBarcodeScanner from "@/components/StaticImageBarcodeScanner"
+import QuaggaScanner from "@/components/quaggaScanner/QuaggaScanner";
 
 export default function Home() {
   const [listName, setListName] = useState("");
@@ -144,7 +148,20 @@ export default function Home() {
           content: (
             <div className="text-center text-gray-500 text-md w-full">
               Scan feature coming soon!
+              <div className="p-4 max-w-md mx-auto">
+      <h2 className="text-xl font-bold mb-4">Scan UPC</h2>
+
+      <div className="h-64">
+        <QuaggaScanner />
+      </div>
+     {/* <div className=""> <BarcodeScanner onDetected={handleDetected} /></div> */}
+      <div>
+      {/* <StaticImageBarcodeScanner /> */}
+      </div>
+    </div>
+
             </div>
+            
           ),
         },
       ]}
