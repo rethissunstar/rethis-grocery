@@ -164,7 +164,7 @@ const Scanner = ({
     }, [onDetected, setUPC]);
 
     const handleProcessed = (result) => {
-        console.log("📷 Frame processed:", result);
+        // console.log("📷 Frame processed:", result);
         if (result.boxes) {
             result.boxes.forEach((box, i) => {
                 console.log(`📦 Box ${i}:`, box.map(([x, y]) => `(${x.toFixed(0)}, ${y.toFixed(0)})`).join(" - "));

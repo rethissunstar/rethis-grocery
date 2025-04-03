@@ -14,7 +14,8 @@ import BarcodeScanner from "@/components/BarcodeScanner";
 import { handleDetected } from "@/utils/scanUtils"; 
 import StaticImageBarcodeScanner from "@/components/StaticImageBarcodeScanner"
 import QuaggaScanner from "@/components/quaggaScanner/QuaggaScanner";
-const [upc] = useAtom(upcAtom);
+import { upcAtom } from "@/store/ListRoute";
+
 
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
   const router = useRouter();
   const setPreventReset = useSetAtom(preventAutoResetAtom);
   const [listToDelete, setListToDelete] = useState(null);
+  const [upc] = useAtom(upcAtom);
 
 
 
