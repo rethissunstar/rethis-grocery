@@ -14,6 +14,8 @@ import BarcodeScanner from "@/components/BarcodeScanner";
 import { handleDetected } from "@/utils/scanUtils"; 
 import StaticImageBarcodeScanner from "@/components/StaticImageBarcodeScanner"
 import QuaggaScanner from "@/components/quaggaScanner/QuaggaScanner";
+const [upc] = useAtom(upcAtom);
+
 
 export default function Home() {
   const [listName, setListName] = useState("");
@@ -151,13 +153,30 @@ export default function Home() {
               <div className="p-4 max-w-md mx-auto">
       <h2 className="text-xl font-bold mb-4">Scan UPC</h2>
 
-      <div className="h-64">
+      {/* <div className="">
         <QuaggaScanner />
       </div>
-     {/* <div className=""> <BarcodeScanner onDetected={handleDetected} /></div> */}
-      <div>
-      {/* <StaticImageBarcodeScanner /> */}
-      </div>
+  */}
+
+{!upc ? (
+  <QuaggaScanner />
+) : (
+  <div className="space-y-4 text-center">
+    <button
+      className="px-4 py-2 bg-blue-500 text-white rounded"
+      onClick={() => alert(`Checking UPC ${upc}`)}
+    >
+      UPC: {upc} — Tap to check
+    </button>
+    <button
+      className="mt-2 px-4 py-2 bg-gray-300 text-black rounded"
+      onClick={() => setUPC("")}
+    >
+      🔄 Rescan
+    </button>
+  </div>
+)}
+
     </div>
 
             </div>
