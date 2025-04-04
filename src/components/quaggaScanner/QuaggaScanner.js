@@ -37,15 +37,16 @@ const QuaggaScanner = () => {
         return () => disableCamera();
     }, []);
 
-    const onTorchClick = useCallback(() => {
-        const torch = !torchOn;
-        setTorch(torch);
-        if (torch) {
-            Quagga.CameraAccess.enableTorch();
-        } else {
-            Quagga.CameraAccess.disableTorch();
-        }
-    }, [torchOn]);
+    //Torch isn't accessible on all devices especially ios
+    // const onTorchClick = useCallback(() => {
+    //     const torch = !torchOn;
+    //     setTorch(torch);
+    //     if (torch) {
+    //         Quagga.CameraAccess.enableTorch();
+    //     } else {
+    //         Quagga.CameraAccess.disableTorch();
+    //     }
+    // }, [torchOn]);
 
     const handleDetected = (code) => {
         console.log("✅ Scanned:", code);
@@ -68,7 +69,8 @@ const QuaggaScanner = () => {
                     </select>
                 </form>
             }
-            <Button className="m-4" onClick={onTorchClick}>{torchOn ? 'Disable Torch' : 'Enable Torch'}</Button>
+            {/* This will not work
+            <Button className="m-4" onClick={onTorchClick}>{torchOn ? 'Disable Torch' : 'Enable Torch'}</Button> */}
             <Button onClick={() => setScanning(!scanning)}>{scanning ? 'Stop' : 'Start'}</Button>
 
             {!scanning && upc && (
@@ -78,7 +80,7 @@ const QuaggaScanner = () => {
       className="w-full bg-blue-600 text-white"
       onClick={() => {
         console.log("🔎 Check this UPC:", upc);
-        // Replace this with your fetch/logic
+        //Put the fetch here.  Don't foget to import the util.
       }}
     >
       {upc} — Tap to check
