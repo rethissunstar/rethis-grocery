@@ -40,26 +40,21 @@
 
 // utils/processBarcode.js
 
-import { checkAndUpdateApiUsage } from '@/utils/checkApiUsage';
+// utilsScanner.js
+import { checkAndUpdateApiUsage } from "@/utils/checkApiUsage";
 
-export const processBarcode = async ({
-  code,
-  setProcessed,
-  ENABLE_FETCH = true,
-}) => {
+export const processBarcode = async ({ code, ENABLE_FETCH }) => {
   if (!ENABLE_FETCH) {
-    console.log("\ud83d\udd0c Fetch is disabled. Using mock data.");
+    console.log("🔌 Fetch is disabled. Using mock data.");
     if (code === "710425595028") {
-      setProcessed("\u2705 This is a UPC for: Borderlands 3 for Xbox");
+      return { title: "Borderlands 3 for Xbox", brand: "2K", images: [] };
     } else {
-      setProcessed("\u2139\ufe0f No known match for this UPC.");
+      return null;
     }
-    return;
   }
 
   if (!checkAndUpdateApiUsage()) {
-    setProcessed("\u26a0\ufe0f Daily UPC lookup limit reached (100). Try again tomorrow.");
-    return;
+    return { error: "⚠️ Daily UPC lookup limit reached (100). Try again tomorrow." };
   }
 
   try {
@@ -74,13 +69,16 @@ export const processBarcode = async ({
     const data = await response.json();
 
     if (data?.items?.length > 0) {
-      const item = data.items[0];
-      setProcessed(`\u2705 Found: ${item.title} by ${item.brand}`);
-    } else {
-      setProcessed("\u2139\ufe0f No known match found on UPCItemDB.");
-    }
+        console.log("📦 Full response object from UPC API:", data); // This logs everything
+        const item = data.items[0];
+        return item;
+      } else {
+        console.log("ℹ️ UPC API returned no items. Full response:", data);
+        return null;
+      }
+      
   } catch (err) {
-    console.error("\u274c Error fetching UPC info:", err);
-    setProcessed("\u274c Server error while fetching UPC info.");
+    console.error("❌ Error fetching UPC info:", err);
+    return { error: "❌ Server error while fetching UPC info." };
   }
 };
