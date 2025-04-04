@@ -148,6 +148,7 @@ const QuaggaScanner = () => {
     const [upc, setUPC] = useAtom(upcAtom);
     const ENABLE_FETCH = false;
     const [scannedItems, setScannedItems] = useState([]);
+    const [statusMessage, setStatusMessage] = useState(null);
 
     useEffect(() => {
         const enableCamera = async () => {
@@ -175,17 +176,19 @@ const QuaggaScanner = () => {
         setResults((prev) => [...prev, { codeResult: { code } }]);
         setUPC(code);
         setScanning(false);
+        setStatusMessage(null);
     };
 
     const handleScanClick = async () => {
+        setStatusMessage("🔍 Checking UPC...");
         console.log("🔎 Checking UPC:", upc);
 
-        // Check local storage cache first
         const cached = localStorage.getItem(`upc-${upc}`);
         if (cached) {
             const item = JSON.parse(cached);
             console.log("📦 Cached item found:", item);
             setScannedItems((prev) => [...prev, item]);
+            setStatusMessage("📦 Found cached result");
             return;
         }
 
@@ -194,8 +197,10 @@ const QuaggaScanner = () => {
             console.log("📦 New item fetched:", result);
             localStorage.setItem(`upc-${upc}`, JSON.stringify(result));
             setScannedItems((prev) => [...prev, result]);
+            setStatusMessage("✅ Item found and stored");
         } else {
             console.warn("❌ No result for scanned UPC");
+            setStatusMessage("❌ No result found for this UPC");
         }
     };
 
@@ -230,10 +235,13 @@ const QuaggaScanner = () => {
                         onClick={() => {
                             setUPC("");
                             setScanning(true);
+                            setStatusMessage(null);
                         }}
                     >
                         🔄 Rescan
                     </Button>
+
+                    {statusMessage && <p className="text-sm text-gray-500 italic mt-2">{statusMessage}</p>}
                 </div>
             )}
 
