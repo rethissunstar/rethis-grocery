@@ -21,16 +21,18 @@ export default function Home() {
   const router = useRouter();
   const setPreventReset = useSetAtom(preventAutoResetAtom);
   const [listToDelete, setListToDelete] = useState(null);
-
-
-
-  useEffect(() => {
+  const loadListsFromStorage = () => {
     const stored = localStorage.getItem("grocery-lists");
     if (stored) {
       setLists(JSON.parse(stored));
     }
-  }, []);
+  };
 
+
+  useEffect(() => {
+    loadListsFromStorage();
+  }, []);
+  
 
 
   const handleCreateList = () => {
@@ -88,110 +90,106 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-4">
-  <Card className="w-full max-w-md h-screen p-4 space-y-4 overflow-y-auto">
-    <Tabs
-      tabs={[
-        {
-          label: "Grocery List",
-          content: (
-            <>
-              <h2 className="text-xl font-bold">Grocery List</h2>
-              <p className="text-gray-600">Start by adding a list.</p>
-
-              <div className="flex w-full items-center rounded-lg border border-gray-300 bg-white overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
-                <Input
-                  type="text"
-                  placeholder="Enter list name"
-                  value={listName}
-                  onChange={(e) => setListName(e.target.value)}
-                  className="flex-1 px-3 py-2 text-base focus:outline-none"
-                />
-                <Button
-                  onClick={handleCreateList}
-                  className="bg-green-800 text-white px-4 py-2 text-sm font-medium hover:bg-green-900 focus:outline-none "
-                >
-                  Add
+      <Card className="w-full max-w-md h-screen p-4 space-y-4 overflow-y-auto">
+        <Tabs
+          onTabChange={(index) => {
+            if (index === 0) {
+              // Refresh lists from localStorage when Grocery List tab is clicked
+              loadListsFromStorage();
+            }
+          }}
+          tabs={[
+            {
+              label: "Grocery List",
+              content: (
+                <>
+                  <h2 className="text-xl font-bold">Grocery List</h2>
+                  <p className="text-gray-600">Start by adding a list.</p>
+  
+                  <div className="flex w-full items-center rounded-lg border border-gray-300 bg-white overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
+                    <Input
+                      type="text"
+                      placeholder="Enter list name"
+                      value={listName}
+                      onChange={(e) => setListName(e.target.value)}
+                      className="flex-1 px-3 py-2 text-base focus:outline-none"
+                    />
+                    <Button
+                      onClick={handleCreateList}
+                      className="bg-green-800 text-white px-4 py-2 text-sm font-medium hover:bg-green-900 focus:outline-none"
+                    >
+                      Add
+                    </Button>
+                  </div>
+  
+                  {lists.length > 0 && (
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-semibold mt-4">Your Lists</h3>
+                      {lists.map((list) => (
+                        <div
+                          key={list}
+                          className="flex justify-between items-center border rounded px-3 py-2"
+                        >
+                          <Button
+                            onClick={() => handleOpenList(list)}
+                            className="text-left text-sm font-medium text-white underline flex-1"
+                          >
+                            {list}
+                          </Button>
+                          <Button
+                            className="bg-slate-400"
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => handleDeleteList(list)}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ),
+            },
+            {
+              label: "Scan",
+              content: (
+                <div className="text-center text-gray-500 text-md w-full">
+                  Scan feature coming soon!
+                  <div className="p-4 max-w-md mx-auto">
+                    <h2 className="text-xl font-bold mb-4">Scan UPC</h2>
+  
+                    <div className="h-64">
+                      <QuaggaScanner />
+                    </div>
+                  </div>
+                </div>
+              ),
+            },
+          ]}
+        />
+  
+        {/* Confirmation Overlay */}
+        {listToDelete && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity duration-300 animate-fade-in">
+            <div className="bg-white p-4 rounded-xl shadow-lg space-y-4 max-w-xs w-full text-center transform transition-all duration-300 scale-95 opacity-0 animate-dialog-in">
+              <p className="text-lg font-semibold">
+                Delete list &quot;{listToDelete}&quot;?
+              </p>
+  
+              <div className="flex justify-center space-x-4">
+                <Button variant="destructive" onClick={confirmDelete}>
+                  Yes, Delete
+                </Button>
+                <Button variant="secondary" onClick={cancelDelete}>
+                  Cancel
                 </Button>
               </div>
-
-              {lists.length > 0 && (
-                <div className="space-y-2">
-                  <h3 className="text-lg font-semibold mt-4">Your Lists</h3>
-                  {lists.map((list) => (
-                    <div
-                      key={list}
-                      className="flex justify-between items-center border rounded px-3 py-2"
-                    >
-                      <Button
-                        onClick={() => handleOpenList(list)}
-                        className="text-left text-sm font-medium text-white underline flex-1"
-                      >
-                        {list}
-                      </Button>
-                      <Button
-                        className="bg-slate-400"
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => handleDeleteList(list)}
-                      >
-                        Delete
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </>
-          ),
-        },
-        {
-          label: "Scan",
-          content: (
-            <div className="text-center text-gray-500 text-md w-full">
-              Scan feature coming soon!
-              <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Scan UPC</h2>
-
-      <div className="h-64">
-        <QuaggaScanner />
-      </div>
- 
-    </div>
-
             </div>
-            
-          ),
-        },
-      ]}
-    />
-
-    {/* Confirmation Overlay */}
-
-    {listToDelete && (
-  <div
-    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity duration-300 animate-fade-in"
-  >
-    <div
-      className="bg-white p-4 rounded-xl shadow-lg space-y-4 max-w-xs w-full text-center transform transition-all duration-300 scale-95 opacity-0 animate-dialog-in"
-    >
-<p className="text-lg font-semibold">
-  Delete list &quot;{listToDelete}&quot;?
-</p>
-
-      <div className="flex justify-center space-x-4">
-        <Button variant="destructive" onClick={confirmDelete}>
-          Yes, Delete
-        </Button>
-        <Button variant="secondary" onClick={cancelDelete}>
-          Cancel
-        </Button>
-      </div>
-    </div>
-  </div>
-)}
-
-  </Card>
-</main>
-
-
+          </div>
+        )}
+      </Card>
+    </main>
   );
+  
 }

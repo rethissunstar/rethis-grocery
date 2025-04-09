@@ -32,7 +32,7 @@ const defaultLocatorSettings = {
 };
 
 const defaultDecoders = [
-    'upc_reader', 'upc_e_reader'
+    'upc_reader', 
   
   ];
 
