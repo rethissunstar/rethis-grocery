@@ -145,8 +145,73 @@ useEffect(() => {
         onAdd={addCategory}
         icon="folder"
       />
-
 <SwipeableList>
+  {listData.uncategorized.map((item, index) => {
+    const priceDisplay =
+      item.lowest_recorded_price && item.highest_recorded_price
+        ? item.lowest_recorded_price === item.highest_recorded_price
+          ? `$${item.lowest_recorded_price}`
+          : `$${item.lowest_recorded_price} - $${item.highest_recorded_price}`
+        : null;
+
+    const imageUrl = item.image || item.images?.[0];
+
+    return (
+      <SwipeableListItem
+        key={index}
+        trailingActions={
+          <TrailingActions>
+            <SwipeAction
+              destructive
+              onClick={() => deleteUncategorizedItem(index)}
+            >
+              Delete
+            </SwipeAction>
+          </TrailingActions>
+        }
+      >
+        <li
+          onClick={() => toggleItem(null, index, true)}
+          className="flex items-start space-x-3 px-3 py-2 bg-white border-b cursor-pointer"
+        >
+          {/* Check / Uncheck icon */}
+          <div className="pt-1">
+            {item.checked ? (
+              <CheckCircle className="text-green-600 w-6 h-6" />
+            ) : (
+              <Circle className="text-gray-400 w-6 h-6" />
+            )}
+          </div>
+
+          {/* Optional image */}
+          {imageUrl && (
+            <img
+              src={imageUrl}
+              alt={item.name}
+              className="w-12 h-12 rounded object-cover border"
+            />
+          )}
+
+          {/* Text content */}
+          <div className="flex flex-col">
+            <span
+              className={`text-lg font-medium ${
+                item.checked ? "line-through text-gray-400" : "text-gray-800"
+              }`}
+            >
+              {item.name}
+            </span>
+            {priceDisplay && (
+              <span className="text-sm text-gray-500">{priceDisplay}</span>
+            )}
+          </div>
+        </li>
+      </SwipeableListItem>
+    );
+  })}
+</SwipeableList>
+
+{/* <SwipeableList>
   {listData.uncategorized.map((item, index) => (
     <SwipeableListItem
       key={index}
@@ -180,7 +245,7 @@ useEffect(() => {
       </li>
     </SwipeableListItem>
   ))}
-</SwipeableList>
+</SwipeableList> */}
 
       <AddItemInput
       className="text-base"
