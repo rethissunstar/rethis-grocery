@@ -185,7 +185,7 @@ export default function ScannedItemSheet({ open, onClose, item, side = "top" }) 
     placeholder="New list name"
     value={newListName}
     onChange={(e) => setNewListName(e.target.value)}
-    className="w-full pr-[4.5rem]"
+    className="w-full pr-[4.5rem] text-base"
   />
   <Button
     onClick={handleNewList}
@@ -221,7 +221,7 @@ export default function ScannedItemSheet({ open, onClose, item, side = "top" }) 
     onChange={(e) => setNewCategoryName(e.target.value)}
     placeholder="New category name"
     disabled={!selectedList}
-    className="w-full pr-[7rem]" // space for longer button
+    className="w-full pr-[7rem] text-base" // space for longer button
   />
   <Button
     onClick={handleNewCategory}
