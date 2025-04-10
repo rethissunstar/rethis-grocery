@@ -305,14 +305,23 @@ export default function ScannedItemSheet({ open, onClose, item, side = "top" }) 
             </SelectContent>
           </Select>
 
-          <div className="flex gap-2">
-            <Input
-              value={newListName}
-              onChange={(e) => setNewListName(e.target.value)}
-              placeholder="New list name"
-            />
-            <Button onClick={handleNewList}>Add List</Button>
-          </div>
+          <div className="relative w-full">
+  <Input
+    type="text"
+    placeholder="New list name"
+    value={newListName}
+    onChange={(e) => setNewListName(e.target.value)}
+    className="w-full pr-[4.5rem]"
+  />
+  <Button
+    onClick={handleNewList}
+    className="absolute top-1 right-1 h-[calc(100%-0.5rem)] px-4 text-sm bg-green-800 hover:bg-green-900"
+  >
+    Add
+  </Button>
+</div>
+
+
 
           {/* Category selector + new category input */}
           <Select
@@ -332,17 +341,23 @@ export default function ScannedItemSheet({ open, onClose, item, side = "top" }) 
             </SelectContent>
           </Select>
 
-          <div className="flex gap-2">
-            <Input
-              value={newCategoryName}
-              onChange={(e) => setNewCategoryName(e.target.value)}
-              placeholder="New category name"
-              disabled={!selectedList}
-            />
-            <Button onClick={handleNewCategory} disabled={!selectedList}>
-              Add Category
-            </Button>
-          </div>
+          <div className="relative w-full">
+  <Input
+    value={newCategoryName}
+    onChange={(e) => setNewCategoryName(e.target.value)}
+    placeholder="New category name"
+    disabled={!selectedList}
+    className="w-full pr-[7rem]" // space for longer button
+  />
+  <Button
+    onClick={handleNewCategory}
+    disabled={!selectedList}
+    className="absolute top-1 right-1 h-[calc(100%-0.5rem)] px-3 text-sm bg-green-800 hover:bg-green-900"
+  >
+    Add Category
+  </Button>
+</div>
+
 
           <Button onClick={handleAdd} disabled={!selectedList}>
             Add to List
