@@ -211,41 +211,7 @@ useEffect(() => {
   })}
 </SwipeableList>
 
-{/* <SwipeableList>
-  {listData.uncategorized.map((item, index) => (
-    <SwipeableListItem
-      key={index}
-      trailingActions={
-        <TrailingActions>
-          <SwipeAction
-            destructive
-            onClick={() => deleteUncategorizedItem(index)}
-          >
-            Delete
-          </SwipeAction>
-        </TrailingActions>
-      }
-    >
-      <li
-        onClick={() => toggleItem(null, index, true)}
-        className="flex items-center space-x-2 px-3 py-2 bg-white border-b cursor-pointer"
-      >
-        {item.checked ? (
-          <CheckCircle className="text-green-600 w-6 h-6" />
-        ) : (
-          <Circle className="text-gray-400 w-6 h-6" />
-        )}
-        <span
-          className={`text-lg ${
-            item.checked ? "line-through text-gray-400" : "text-gray-800"
-          }`}
-        >
-          {item.name}
-        </span>
-      </li>
-    </SwipeableListItem>
-  ))}
-</SwipeableList> */}
+
 
       <AddItemInput
       className="text-base"
