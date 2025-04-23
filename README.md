@@ -6,11 +6,11 @@ A lightweight, mobile-friendly web app for creating, organizing, and managing gr
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="/image0.png" width="200" />
-  <img src="/image1.png" width="200" />
-  <img src="/image2.png" width="200" />
-  <img src="/image3.png" width="200" />
-  <img src="/image4.png" width="200" />
+  <img src="/public/image0.png" width="200" />
+  <img src="/public/image1.png" width="200" />
+  <img src="/public/image2.png" width="200" />
+  <img src="/public/image3.png" width="200" />
+  <img src="/public/image4.png" width="200" />
 </div>
 
 # compatible 
